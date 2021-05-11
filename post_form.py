@@ -1,10 +1,11 @@
 from flask import Flask, render_template, request
 app = Flask(__name__)
 
-@app.route('/', methods=['POST', 'GET'])
+@app.route('/')
 def home():
-    if request.method == 'POST':
-        name = request.form['un']
-        return 'hello ' + name
-    else:
-        return render_template('simple_form.html')
+    return render_template('simple_form.html')
+        
+@app.route('/hello', methods=['POST'])
+def hello():
+    name = request.form['un']
+    return 'hello ' + name
