@@ -1,8 +1,27 @@
-@app.route('/insert', methods=['POST'])
-def insert():
-    con = sqlite3.connect('login.db')
-    cur = con.cursor()
-    cur.execute("INSERT INTO Users VALUES (?,?)",
-        (request.form['un'],request.form['pw']))
-    con.commit()
-    return request.form['un'] + ' added'
+from flask import Flask, render_template, request
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return render_template('index.html')
+
+@app.route('/signup', methods=['POST'])
+def signup():
+    f = open("users.txt", "w")
+    f.write(request.form['username'] + ',' + request.form['password'])
+    f.close()
+    return 'hello ' + request.form['username']
+
+@app.route('/login')
+def login():
+    return render_template('login.html')
+
+@app.route('/verify', methods=['POST'])
+def verify():
+    f = open("users.txt", "r")
+    file = f.read()
+    split = file.split(',')
+    if request.form['username'] == split[0] and request.form['password'] == split[1]:
+        return "correct username and password"
+    else:
+        return 'error'
