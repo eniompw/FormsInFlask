@@ -3,9 +3,8 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return render_template('simple_form.html')
-        
-@app.route('/hello', methods=['POST'])
-def hello():
-    name = request.form['un']
-    return 'hello ' + name
+    return render_template('index.html')
+
+@app.route('/signup', methods=['POST'])
+def signup():
+    return 'hello ' + request.form['username']
