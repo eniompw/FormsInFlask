@@ -4,7 +4,7 @@ app = Flask(__name__)
 @app.route('/')
 def home():
     name = request.args.get('name')
-    if name == '':
+    if name == None:
         return render_template('simple_form.html')
     else:
         return 'hello ' + name
